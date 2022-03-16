@@ -66,7 +66,7 @@ JSON schema request
         },
         'required': ['host', 'port', 'username', 'password', 'devtype']
     }
-Ответ на команды:  
+Response to commands:  
 For net_send  
 
     {
@@ -81,5 +81,5 @@ For net_send
 For net_change  
 
     {
-    'result': string ## строка с выполненными командами
+    'result': string
     }
