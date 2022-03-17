@@ -1,3 +1,5 @@
+Eng | [Rus](./README-ru.md)   
+
 ![](https://img.shields.io/badge/python-3.9-green) ![](https://img.shields.io/badge/python-3.10-green)
 
 ![Logo](logo.png)   
