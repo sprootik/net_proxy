@@ -22,7 +22,7 @@ nohup ./net_proxy.py &
 docker build -t net_proxy .  
 
 Запустить docker контейнер:  
-docker run -d -it -p [SERVER IP]:4444:4444/tcp --name net_proxy -v "$PWD"/logs:/app/logs -v "$PWD"/cfg:/app/cfg net_proxy:lates      
+docker run -d -it -p [SERVER IP]:4444:4444/tcp --name net_proxy -v "$PWD"/logs:/app/logs -v "$PWD"/cfg:/app/cfg net_proxy:latest      
  
 ***
 
