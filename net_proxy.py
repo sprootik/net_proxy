@@ -24,7 +24,7 @@ monkey.patch_all()
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 # logs
-FORMAT = f"%(asctime)s - [%(levelname)s] - %(name)s - %(message)s"
+FORMAT = "%(asctime)s - [%(levelname)s] - %(name)s - %(message)s"
 logger = logging.getLogger('http_net_proxy')
 if settings.getboolean("logs", "debug") is False:
     log_level = logging.INFO
@@ -65,15 +65,17 @@ def net_send():
     }
     try:
         connection = ConnectHandler(**net_parameters)
-    except Exception as e:
-        return jsonify({'error': str(e)}), 200
-    else:
         output = []
         for line in commands:
             out = connection.send_command(line)
             output.append(out)
-        connection.disconnect()
+    except Exception as e:
+        return jsonify({'error': str(e)}), 200
+    else:
         return jsonify(result=output), 200
+    finally:
+        if 'connection' in locals():
+            connection.disconnect()
 
 
 @app.route('/net_change', methods=['POST'])
@@ -97,12 +99,14 @@ def net_change():
     }
     try:
         connection = ConnectHandler(**net_parameters)
+        output = connection.send_config_set(commands)
     except Exception as e:
         return jsonify({'error': str(e)}), 200
     else:
-        output = connection.send_config_set(commands)
-        connection.disconnect()
         return jsonify(result=output), 200
+    finally:
+        if 'connection' in locals():
+            connection.disconnect()
 
 
 @app.errorhandler(400)
